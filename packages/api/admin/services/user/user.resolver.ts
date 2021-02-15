@@ -1,62 +1,52 @@
 import { Resolver, Query, Arg, Int, Mutation } from 'type-graphql';
+import { getManager } from 'typeorm';
 
-import User from './user.type';
-import loadUsers from './user.sample';
+import * as bcrypt from 'bcryptjs';
+import User from "../../entity/User";
+
 
 @Resolver()
 export class UserResolver {
-  private readonly items: User[] = loadUsers();
+ 
 
   @Query(() => User)
-  async me(@Arg('id') id: string): Promise<User> {
+  async me(@Arg('email') email: string): Promise<User | undefined> {
     // as auth user. check from middleware.
-    console.log(id, 'user_id');
-    return await this.items[0];
+    const manager = getManager(); 
+    const user    = await manager.findOne(User, { email });
+    
+    if(user === undefined){
+      throw new Error ('No user found!')
+    }
+    return user;
   }
 
-  @Mutation(() => User, { description: 'Update User' })
-  async updateMe(@Arg('meInput') meInput: string): Promise<User> {
-    console.log(meInput, 'meInput');
-    return await this.items[0];
-  }
 
-  @Mutation(() => User, { description: 'Add or Edit Address' })
-  async updateAddress(
-    @Arg('addressInput') addressInput: string
-  ): Promise<User> {
-    console.log(addressInput, 'addressinput');
-    return await this.items[0];
-  }
+  @Mutation(() => User, { nullable:true })
+  async   registerUser(@Arg('name')     name:string,
+                       @Arg('email')    email:string,
+                       @Arg('password') password:string
+                  ):Promise<User | undefined> {
 
-  @Mutation(() => User, { description: 'Add or Edit Contact' })
-  async updateContact(
-    @Arg('contactInput') contactInput: string
-  ): Promise<User> {
-    console.log(contactInput, 'contactinput');
-    return await this.items[0];
-  }
+        const user             = new User();
+        const manager          = getManager(); 
+        const isEmailExists    = await manager.findOne(User, { email });
 
-  @Mutation(() => User, { description: 'Delete Address' })
-  async deleteAddress(@Arg('addressId') addressId: string): Promise<User> {
-    console.log(addressId, 'address_id');
-    return await this.items[0];
-  }
+        if(isEmailExists) {
+          return undefined
+        }
 
-  @Mutation(() => User, { description: 'Delete Contact' })
-  async deleteContact(@Arg('contactId') contactId: string): Promise<User> {
-    console.log(contactId, 'contact_id');
-    return await this.items[0];
-  }
+        user.name       = name ;
+        user.email      = email;
+        user.password   = await bcrypt.hash(password,12);
+        user.isActive   = false;  
 
-  @Mutation(() => User, { description: 'Add Payment Card' })
-  async addPaymentCard(@Arg('cardInput') cardInput: string): Promise<User> {
-    console.log(cardInput, 'cardInput');
-    return await this.items[0];
-  }
+        const savedUser = manager.save(user);       
 
-  @Mutation(() => User, { description: 'Delete Payment Card' })
-  async deletePaymentCard(@Arg('cardId') cardId: string): Promise<User> {
-    console.log(cardId, 'card_id');
-    return await this.items[0];
-  }
+        return savedUser;
+
+   }
+
+  
+
 }
