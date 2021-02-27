@@ -1,6 +1,8 @@
 import { Field, ID, ObjectType } from "type-graphql";
 import {Entity, Column, BaseEntity, ObjectIdColumn, ObjectID} from "typeorm";
 
+import Order from './Order'
+
 @ObjectType()
 @Entity()
 export default class Customer extends BaseEntity {
@@ -31,5 +33,10 @@ export default class Customer extends BaseEntity {
     @Field()
     @Column()
     type:number
+
+
+    @Field(() => [Order])
+    @Column()
+    orders:Order[]
 
 }

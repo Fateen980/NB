@@ -1,5 +1,5 @@
 import { ObjectID } from 'mongodb';
-import { Resolver, Query, Arg, Int, Mutation } from 'type-graphql';
+import { Resolver, Query, Arg, Int, Mutation, Authorized } from 'type-graphql';
 import { getManager } from 'typeorm';
 import   Product      from "../../entity/Product";
 
@@ -24,7 +24,7 @@ export class ProductResolver {
       return product;
     }
 
-
+    // @Authorized()
     @Query(() => [Product])
     async allProducts(): Promise<Product[] | undefined> {
       
@@ -41,6 +41,7 @@ export class ProductResolver {
         @Arg('price') price :number
     ):Promise<Product | undefined> {
 
+      console.log(name,"fateenData");
       const manager       = getManager(); 
       const product       = new Product();
       product.name  = name

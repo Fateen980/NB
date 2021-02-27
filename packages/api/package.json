@@ -2,7 +2,7 @@
   "name": "@nb/api",
   "version": "1.0.0",
   "scripts": {
-    "dev": "ts-node-dev --respawn server.ts",
+    "dev": "nodemon --exec ts-node-dev  server.ts",
     "build": "rimraf dist && mkdir dist && tsc -b && copyfiles -u 1 src/ dist/",
     "start": "cross-env NODE_ENV=production node dist/server.js"
   },

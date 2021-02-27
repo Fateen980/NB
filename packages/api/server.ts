@@ -31,7 +31,7 @@ const PORT = process.env.PORT || 4000;
 const main = async () => {
 
     await createConnection();
-
+console.log('fateen');
     const schema = await buildSchema({
       resolvers: [
         UserResolver,
@@ -40,7 +40,11 @@ const main = async () => {
         ProductResolver,
         LoginResolver,
         MeResolver,
-      ]
+      ],
+      // authChecker:({context : { req }},roles,) => {
+
+      //   return !!req.session.userId; 
+      // }
     });
     const apolloServer = new ApolloServer({
       schema,
@@ -50,10 +54,10 @@ const main = async () => {
       context:({ req }: any ) => ({ req })
     });
 
- app.use(cors({
-   credentials:true,
-   origin:"http://localhost:3000"
- })); 
+//  app.use(cors({
+//    credentials:true,
+//    origin:"http://localhost:3000/"
+//  })); 
  
  const RedisStore = connectRedis(session);
 

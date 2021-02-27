@@ -5,6 +5,12 @@ import Customer from '../../entity/Customer';
 import NewCustomerInput from './NewCustomerInput';
 
 
+type DeleteResult =  {
+  raw: any;
+  affected?: number|null;
+}
+
+
 
 @Resolver()
 export class CustomerResolver {
@@ -14,16 +20,29 @@ export class CustomerResolver {
   async findCustomer(@Arg('phone') phone: string):Promise<Customer | undefined>  {
     // as auth user. check from middleware.
     const manager     = getManager(); 
-    const customer = await manager.findOne(Customer, { phone });
-
+    const customer    = await manager.findOne(Customer, { phone });
 
     if (customer === undefined) {
-
        throw new Error('Customer is not found!') 
     }
 
     return customer;
   }
+
+
+  @Query(() => [Customer])
+  async allCustomer():Promise<Customer[] | undefined>  {
+    // as auth user. check from middleware.
+    const manager     = getManager(); 
+    const customer    = await manager.find(Customer);
+
+    if (customer === undefined) {
+       throw new Error('Customer is not found!') 
+    }
+
+    return customer;
+  }
+
 
   @Mutation(() => Customer, { description: 'Add New Customer' })
   async addCustomer(
@@ -49,5 +68,15 @@ export class CustomerResolver {
         return customer;
   }
 
+  @Mutation(() => Customer, { description: 'Delete Customer' })
+  async deleteCustomer(
+    @Arg('phone') phone: string
+  ):Promise<Customer | DeleteResult> {
+
+    const manager  = getManager(); 
+    const customer = await manager.delete(Customer, { phone });
+
+    return customer
+  }
 
 }

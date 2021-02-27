@@ -1,65 +1,60 @@
 import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import { ApolloProvider, ApolloClient, HttpLink, InMemoryCache } from '@apollo/client';
+import { ThemeProvider } from 'styled-components';
+import { defaultTheme } from  'site-settings/site-theme/default';
+import { GlobalStyle }  from  'assets/styles/global.style';
+import  AddCustomer     from 'components/customer/customer'
+import  ReactTable      from 'components/table/table'
+
+
+
+
+function createIsomorphLink() {
+  return new HttpLink({
+    uri: 'http://localhost:4000/admin/graphql', // Server URL (must be absolute)
+    credentials: 'same-origin', // Additional fetch() options like `credentials` or `headers`
+  });
+}
+
+
+const client = new ApolloClient({
+  ssrMode: typeof window === 'undefined',
+  link: createIsomorphLink(),
+  cache: new InMemoryCache(),
+  onError: (e) => { console.log(e) },
+});
+
+
 
 export default function Home() {
-  return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+  const item = {id: null};
+
+  return (
+    <ApolloProvider client={client}>
+      <ThemeProvider theme={defaultTheme}>
+      <GlobalStyle />
+
+      <div >
+      <Head>
+        <title>Natural Beauty</title>
+        {/* <link rel="icon" href="/favicon.ico" /> */}
+      </Head>
+      <main >
+        <h1 >
+          Welcome to <a href="/">Natural Beauty!</a>
         </h1>
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
+    
+        <AddCustomer  item={item}/>
 
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
       </main>
 
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
+      <footer >
+          Natural Beauty
       </footer>
-    </div>
+      </div>
+      </ThemeProvider>
+    </ApolloProvider>
   )
 }
