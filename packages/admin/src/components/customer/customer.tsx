@@ -1,11 +1,12 @@
-import React, { useContext } from 'react';
+import React, { useContext ,useState } from 'react';
 import * as Yup from 'yup';
 import { withFormik, FormikProps, Form } from 'formik';
 import TextField from 'components/forms/text-field';
 import { Button } from 'components/button/button';
-import { useMutation } from '@apollo/client';
+import { useMutation , useQuery } from '@apollo/client';
 import { ADD_CUSTOMER } from 'graphql/mutation/customer';
-import { FieldWrapper, Heading } from './customer-style';
+import { FIND_CUSTOMER_BY_PHONE } from 'graphql/query/customer.query';
+import { FieldWrapper, Heading }  from './customer-style';
 //import   MySelect  from 'components/select/select';
 
 // Shape of form values
@@ -36,7 +37,9 @@ const FormEnhancer = withFormik<MyFormProps, FormValues>({
   },
   validationSchema: Yup.object().shape({
     name:  Yup.string().required('Title is required!'),
-    phone: Yup.string().required('Phone is required').length(10,'Must be 10 digits'),
+    phone: Yup.string()
+                       .required('Phone is required')
+                       .length(10,'Must be 10 digits'),
     info:  Yup.string().required('Address is required'),
     city:  Yup.string().required('City is required!'),
   }),
@@ -58,13 +61,15 @@ const AddCustomer = (props: FormikProps<FormValues> & MyFormProps) => {
     dirty,
     setFieldTouched,
     setFieldValue,
-    handleChange,
     handleBlur,
+    handleChange,
     handleReset,
     isSubmitting,
+    setErrors,
   } = props;
 
  
+  const [message, setMessage]= useState( '' );
 
   const customerValue = {
 
@@ -80,11 +85,25 @@ const AddCustomer = (props: FormikProps<FormValues> & MyFormProps) => {
 
   const [addCustomer, {error,data}] = useMutation(ADD_CUSTOMER);
 
+  const phone = values.phone
+  const isFound = useQuery(FIND_CUSTOMER_BY_PHONE, {
+    variables: { phone },
+  });
+
+
+
   const handleSubmit =  async () => {
    
-    
+     if(isFound.data !== undefined){
+      
+        setMessage('Phone Number is found!');
+        return false
+     }
 
-    if (isValid) {
+  
+    if (isValid && isFound.data === undefined) {
+
+
       const customerData = await addCustomer({
         variables: { 
                                         name:values.name,
@@ -96,13 +115,14 @@ const AddCustomer = (props: FormikProps<FormValues> & MyFormProps) => {
                                         ,
                   }          
       });
+                setMessage('Saved Successfully');
                 console.log(customerData, 'Customer data');
     }
   };
   return (
 
     <Form>
-      <h1>Add new customer</h1>
+      <h1>Fateen</h1>
 
       <select
         name="city"
@@ -116,6 +136,7 @@ const AddCustomer = (props: FormikProps<FormValues> & MyFormProps) => {
         <option value="3" label="Al-Zarqa" />
       </select>
 
+      <h1>{message}</h1>
 
       <FieldWrapper>
         <TextField

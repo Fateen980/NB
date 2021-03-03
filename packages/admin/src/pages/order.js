@@ -3,11 +3,11 @@ import { ApolloProvider, ApolloClient, HttpLink, InMemoryCache , useQuery } from
 import dynamic from 'next/dynamic';
 import { ThemeProvider }  from 'styled-components';
 //import {Grid , Col , Row} from 'components/FlexBox/FlexBox'
-import { defaultTheme }   from  'site-settings/site-theme/default';
-import { GlobalStyle }    from  'assets/styles/global.style';
-import  { ViewCustomer }  from 'components/customer/viewCustomers'
-import  NavLink           from 'components/nav-link/nav-link'
-import {Heading }         from 'components/customer/customer-style';
+import { defaultTheme }     from 'site-settings/site-theme/default';
+import { GlobalStyle }      from 'assets/styles/global.style';
+import  { ViewOrder }       from 'components/order/ViewOrder'
+import    NavLink           from 'components/nav-link/nav-link'
+import   {Heading }         from 'components/customer/customer-style';
 
 
 
@@ -31,7 +31,7 @@ const client = new ApolloClient({
 
 
 
-export default function Customer() {
+export default function Order() {
 
  
   const item = {id: null};
@@ -48,16 +48,16 @@ export default function Customer() {
       </Head>
       <main >
       <Heading >
-         <NavLink router="grocery"  href="/grocery" label="Add New Customer" />
+         <NavLink router="grocery" href="/grocery" label="Add New Customer" />
          <NavLink router="customer" href="/orders" label="add New Order" />
-         <NavLink router="customer" href="/order" label="View Orders" />
+         <NavLink router="customer" href="/customer" label="View Customers" />
        </Heading>
         <h1 >
-          View all customers
+          View all Orders
         </h1>
 
 
-         <ViewCustomer />
+         <ViewOrder />
         
       </main>
 

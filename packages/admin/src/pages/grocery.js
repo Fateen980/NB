@@ -47,9 +47,8 @@ export default function Grocery() {
        <AddCustomer  item={item}/>
        <Heading>
          <NavLink router="customer" href="/customer" label="View Customers" />
-       </Heading>
-       <Heading>
          <NavLink router="customer" href="/orders" label="add New Order" />
+         <NavLink router="customer" href="/order" label="View Orders" />
        </Heading>
       </AppLayout>
       </ThemeProvider>

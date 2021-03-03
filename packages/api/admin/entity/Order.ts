@@ -15,11 +15,16 @@ export default class Order extends BaseEntity {
 
     @Field()
     @Column()
-    city_id: string;
+    product_id: string;
 
-    @Field(() => Float , { defaultValue:0.00 })
+
+    @Field( { defaultValue:0.00 })
     @Column()
-    price:number   
+    price:number
+    
+    @Field({ defaultValue:0.00 })
+    @Column()
+    deliveryAmount:number  
 
     @Field({ defaultValue:0 })
     @Column()

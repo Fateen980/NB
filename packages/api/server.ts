@@ -12,6 +12,7 @@ import { CustomerResolver } from './admin/services/customer/customer.resolver';
 import { CityResolver }     from './admin/services/city/city.resolver';
 import { ProductResolver }  from './admin/services/product/product.resolver';
 import { LoginResolver }    from './admin/services/user/login';
+import { OrderResolver }    from './admin/services/order/order.resolver';
 import { MeResolver }       from './admin/services/user/me';
 
 
@@ -40,6 +41,7 @@ console.log('fateen');
         ProductResolver,
         LoginResolver,
         MeResolver,
+        OrderResolver,
       ],
       // authChecker:({context : { req }},roles,) => {
 

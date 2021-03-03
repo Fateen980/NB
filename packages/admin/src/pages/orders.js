@@ -8,7 +8,7 @@ import { GlobalStyle }    from  'assets/styles/global.style';
 import  { ViewCustomer }  from 'components/customer/viewCustomers'
 import  NavLink           from 'components/nav-link/nav-link'
 import {Heading }         from 'components/customer/customer-style';
-
+import AddOrder           from 'components/order/order'
 
 
 
@@ -48,16 +48,15 @@ export default function Order() {
       </Head>
       <main >
       <Heading >
-         <NavLink router="grocery" href="/grocery" label="Add New Customer" />
-       </Heading>
-       <Heading>
+         <NavLink router="grocery" href="/grocery"   label="Add New Customer" />
          <NavLink router="customer" href="/customer" label="View Customers" />
+         <NavLink router="customer" href="/order"    label="View Orders" />
        </Heading>
         <h1 >
           Add New Order
         </h1>
 
-
+        <AddOrder item={item} />
         
       </main>
 

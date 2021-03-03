@@ -13,3 +13,12 @@ query {
             }
          }
       `;
+
+export const FIND_CUSTOMER_BY_PHONE = gql`
+query ($phone:String!) {
+    findCustomer (phone:$phone){
+    name
+    }
+  }
+`;
+
