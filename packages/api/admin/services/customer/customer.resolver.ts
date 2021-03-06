@@ -60,13 +60,39 @@ export class CustomerResolver {
 
               await manager.save(customer);
       
-              if (customer === undefined) {
+              if (typeof customer === undefined) {
 
                 throw new Error('Customer is not found!') 
              }
 
         return customer;
   }
+
+
+  @Mutation(() => Customer , {description:'Update Customer'})
+  async updateCustomer(
+    @Arg('phone') phone: string,
+    @Arg('city')  city: string
+  ):Promise<Customer | undefined>{
+
+    const manager     = getManager(); 
+   const customer    = await manager.findOne(Customer, { phone });
+    if(typeof customer !== undefined){
+
+         customer!.city     = city;
+         await manager.save(customer);
+
+    }
+
+    if (typeof customer === undefined) {
+
+      throw new Error('Customer is not found!') 
+    }
+   
+    return customer
+
+  }
+
 
   @Mutation(() => Customer, { description: 'Delete Customer' })
   async deleteCustomer(

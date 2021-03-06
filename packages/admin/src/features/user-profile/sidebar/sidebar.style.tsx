@@ -10,6 +10,7 @@ const SidebarWrapper = styled.div`
   flex-shrink: 0;
   background-color: ${themeGet('colors.white', '#ffffff')};
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.16);
+  padding:15px;
 `;
 
 const SidebarTop = styled.div`

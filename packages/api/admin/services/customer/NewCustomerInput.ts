@@ -1,5 +1,6 @@
 import { InputType, Field  } from 'type-graphql';
 import {MaxLength, Min,Max,Length,IsInt, IsString,IsNotEmpty} from 'class-validator'
+import { ObjectID } from 'typeorm';
 
 
 @InputType()
@@ -18,7 +19,7 @@ export default class NewCustomerInput {
 
     @Field()
     @IsNotEmpty()
-    city:number;
+    city:string;
 
     @Field()
     @IsInt()

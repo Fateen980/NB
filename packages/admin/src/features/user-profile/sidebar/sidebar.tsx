@@ -8,12 +8,14 @@ import {
   SidebarMenu,
   LogoutButton,
 } from './sidebar.style';
-import { FormattedMessage } from 'react-intl';
+
 import {
   PROFILE_SIDEBAR_TOP_MENU,
   PROFILE_SIDEBAR_BOTTOM_MENU,
 } from 'site-settings/site-navigation';
 
+import  NavLink           from 'components/nav-link/nav-link'
+import {Heading }         from 'components/customer/customer-style';
 const SidebarCategory: React.FC<{}> = () => {
   const { authDispatch } = useContext<any>(AuthContext);
 
@@ -28,17 +30,18 @@ const SidebarCategory: React.FC<{}> = () => {
     <>
       <SidebarWrapper>
         <SidebarTop>
-          {PROFILE_SIDEBAR_TOP_MENU.map((item, index) => (
-            <SidebarMenu href={item.href} key={index} intlId={item.id} />
-          ))}
+        <Heading>
+         <NavLink router="customer" href="/grocery"  label="Add new Customer" />
+         <NavLink router="customer" href="/customer" label="View Customers" />
+         <NavLink router="customer" href="/orders"   label="add New Order" />
+         <NavLink router="customer" href="/order"    label="View Orders" />
+         </Heading>
         </SidebarTop>
 
         <SidebarBottom>
-          {PROFILE_SIDEBAR_BOTTOM_MENU.map((item, index) => (
-            <SidebarMenu href={item.href} key={index} intlId={item.id} />
-          ))}
+
           <LogoutButton type="button" onClick={handleLogout}>
-            <FormattedMessage id="nav.logout" defaultMessage="Logout" />
+           
           </LogoutButton>
         </SidebarBottom>
       </SidebarWrapper>

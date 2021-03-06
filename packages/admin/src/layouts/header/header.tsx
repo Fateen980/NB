@@ -49,8 +49,7 @@ const Header: React.FC<Props> = ({ className }) => {
     pathname === '/bakery';
   return (
     <HeaderWrapper className={className} id="layout-header">
-      <LeftMenu logo={''} />
-      {/* <Search minimal={true} className="headerSearch" /> */}
+
     
     </HeaderWrapper>
   );

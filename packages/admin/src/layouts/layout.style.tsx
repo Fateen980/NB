@@ -3,7 +3,7 @@ import { themeGet } from '@styled-system/theme-get';
 
 export const LayoutWrapper = styled.div`
   background-color: ${themeGet('colors.gray.200', '#F7F7F7')};
-
+  margin:50px;
   @media (max-width: 990px) {
     background-color: ${themeGet('colors.white', '#ffffff')};
   }

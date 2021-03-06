@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext , useState} from 'react';
 import * as Yup from 'yup';
 import { withFormik, FormikProps, Form } from 'formik';
 import TextField from 'components/forms/text-field';
@@ -72,6 +72,8 @@ const AddOrder = (props: FormikProps<FormValues> & MyFormProps) => {
     isSubmitting,
   } = props;
 
+  const [message , setMessage] = useState('');
+
  
   const [addOrder, {error,data}] = useMutation(ADD_ORDER);
 
@@ -91,15 +93,14 @@ const AddOrder = (props: FormikProps<FormValues> & MyFormProps) => {
                       deliveryDate: values.deliveryDate.toISOString(),
         }          
       });
-
-      console.log(orderData,'orderData');
-  
+          setMessage('Saved Successfully');
     }
   };
   return (
 
     <Form>
 
+      <h1>{ message }</h1>
       <FieldWrapper>
        <TextField
           name="phone"
@@ -194,7 +195,15 @@ const AddOrder = (props: FormikProps<FormValues> & MyFormProps) => {
         type="submit"
         name="save"
         style={{ width: '100%', height: '44px' }}
+        disabled={!isValid}
       >
+        Save
+      </Button>
+
+      </FieldWrapper>
+      <FieldWrapper>
+      <Button  type='submit'  onClick={handleReset}>
+          Reset My Password
       </Button>
       </FieldWrapper>
     </Form>

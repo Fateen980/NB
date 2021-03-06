@@ -6,7 +6,7 @@ import { useAppState } from 'contexts/app/app.provider';
 import Header from './header/header';
 import { LayoutWrapper } from './layout.style';
 import { isCategoryPage } from './is-home-page';
-
+import  Footer  from './footer'
 
 type LayoutProps = {
   className?: string;
@@ -29,14 +29,9 @@ const Layout: React.FunctionComponent<LayoutProps> = ({
   const isHomePage = isCategoryPage(query.type) || pathname === '/bakery';
   return (
     <LayoutWrapper className={`layoutWrapper ${className}`}>
-      <Sticky enabled={isSticky} innerZ={1001}>
-        <Header
-          className={`${isSticky ? 'sticky' : 'unSticky'} ${
-            isHomePage ? 'home' : ''
-          }`}
-        />
-      </Sticky>
+      <Header />
       {children}
+      <Footer />
     </LayoutWrapper>
   );
 };

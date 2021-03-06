@@ -20,7 +20,7 @@ export default class Customer extends BaseEntity {
 
     @Field()
     @Column()
-    city:number;
+    city:string;
 
     @Field()
     @Column()

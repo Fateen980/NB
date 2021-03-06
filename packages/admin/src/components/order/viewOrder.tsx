@@ -9,56 +9,44 @@ const columns = [
       title: 'Phone Number',
       dataIndex: 'customer_id',
       key: 'customer_id',
-      width: 200,
+      width: 100,
     },
     {
       title: 'Product',
       dataIndex: 'product_id',
       key: 'product_id',
-      width: 100,
+      width: 50,
     },
     {
       title: 'Price',
       dataIndex: 'price',
       key: 'price',
-      width: 100,
+      width: 50,
     },
     {
       title: 'Delivery Amount',
       dataIndex: 'deliveryAmount',
       key: 'deliveryAmount',
-      width: 100,
+      width: 50,
     },
     {
         title: 'Quantity',
         dataIndex: 'quantity',
         key: 'quantity',
-        width: 200,
+        width: 50,
       },
       {
         title: 'total',
         dataIndex: 'total',
         key: 'total',
-        width: 100,
-      },
-      {
-        title: 'date',
-        dataIndex: 'CurrentDate',
-        key: 'CurrentDate',
-        width: 200,
+        width: 50,
       },
       {
         title: 'Delivery Date',
         dataIndex: 'deliverydate',
         key: 'deliverydate',
-        width: 200,
+        width: 150,
       },
-    {
-      title: 'Operations',
-      dataIndex: '',
-      key: 'operations',
-      render: () => <a href="#">Edit</a>
-    },
   ];
   
   
@@ -85,7 +73,7 @@ export const ViewOrder:React.FC = () =>
                
                 let CurrentDate  = date.substring(0,10);
                 let deliverydate = deliveryDate.substring(0,10);
-                newObject = {customer_id,product_id,CurrentDate,deliverydate,deliveryAmount,price,quantity,total,key:_id }
+                newObject = {customer_id,product_id,deliverydate,deliveryAmount,price,quantity,total,key:_id }
                 tableData.push(newObject);
 
 

@@ -6,6 +6,7 @@ import { Button } from 'components/button/button';
 import { useMutation , useQuery } from '@apollo/client';
 import { ADD_CUSTOMER } from 'graphql/mutation/customer';
 import { FIND_CUSTOMER_BY_PHONE } from 'graphql/query/customer.query';
+import { GET_ALL_CITY }           from 'graphql/query/city.query';
 import { FieldWrapper, Heading }  from './customer-style';
 //import   MySelect  from 'components/select/select';
 
@@ -32,7 +33,7 @@ const FormEnhancer = withFormik<MyFormProps, FormValues>({
       name:  props.item.name   || '',
       phone: props.item.phone  || '',
       info:  props.item.phone  || '',
-      city:  props.item.city   || 1,
+      city:  props.item.city   ||  '6026337a9af53b0fa9fcfc29',
     };
   },
   validationSchema: Yup.object().shape({
@@ -83,12 +84,15 @@ const AddCustomer = (props: FormikProps<FormValues> & MyFormProps) => {
   };
   //const { state, dispatch } = useContext(ProfileContext);
 
+  const ALL_CITY = useQuery(GET_ALL_CITY);
+  
   const [addCustomer, {error,data}] = useMutation(ADD_CUSTOMER);
 
   const phone = values.phone
   const isFound = useQuery(FIND_CUSTOMER_BY_PHONE, {
     variables: { phone },
   });
+
 
 
 
@@ -108,7 +112,7 @@ const AddCustomer = (props: FormikProps<FormValues> & MyFormProps) => {
         variables: { 
                                         name:values.name,
                                         phone:values.phone,
-                                        city:parseFloat(values.city),
+                                        city:values.city,
                                         status:1,
                                         type:1,
                                         address:values.info
@@ -122,8 +126,8 @@ const AddCustomer = (props: FormikProps<FormValues> & MyFormProps) => {
   return (
 
     <Form>
-      <h1>Fateen</h1>
 
+      <h1>{message}</h1>
       <select
         name="city"
         value={values.city}
@@ -131,12 +135,13 @@ const AddCustomer = (props: FormikProps<FormValues> & MyFormProps) => {
         onBlur={handleBlur}
         style={{ display: 'block' , width:'180px',margin:"10px",padding:"5px" }}
       >
-        <option value="1" label="Amman" />
-        <option value="2" label="Irbid" />
-        <option value="3" label="Al-Zarqa" />
+         {ALL_CITY.data !== undefined && ALL_CITY.data.allCity.map((item, index) => (
+            <option key={index} value={item._id} label={item.name} />
+          ))}
+
       </select>
 
-      <h1>{message}</h1>
+      
 
       <FieldWrapper>
         <TextField
@@ -185,7 +190,14 @@ const AddCustomer = (props: FormikProps<FormValues> & MyFormProps) => {
         type="submit"
         name="save"
         style={{ width: '100%', height: '44px' }}
+        disabled={!isValid}
       >
+        Save
+      </Button>
+      </FieldWrapper>
+      <FieldWrapper>
+      <Button  type='submit'  onClick={handleReset}>
+          Reset My Password
       </Button>
       </FieldWrapper>
     </Form>

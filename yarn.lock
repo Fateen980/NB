@@ -2077,10 +2077,10 @@
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
   integrity sha1-p3c2C1s5oaLlEG+OhY8v0tBgxXA=
 
-"@redq/reuse-modal@^1.2.4":
-  version "1.2.4"
-  resolved "https://registry.yarnpkg.com/@redq/reuse-modal/-/reuse-modal-1.2.4.tgz#2bb284bf96cd97e123f04a43033ff826e6bbfc0c"
-  integrity sha512-dkIdg/crU3ieUrOKnwS52MUICnoOPdr9sV65ogjBse9OF3j1FsU8j1ZAWHu0GpDQnySI7MUp6jMqf5WxAhZxMA==
+"@redq/reuse-modal@1.2.4-beta.0.63":
+  version "1.2.4-beta.0.63"
+  resolved "https://registry.yarnpkg.com/@redq/reuse-modal/-/reuse-modal-1.2.4-beta.0.63.tgz#fb6030692ce214fd662ac9cd227dfeac312daccb"
+  integrity sha512-4KSGLUfY9uGKIIrsoX3lg1XgVe8zfEO+oqUcNj5iet35jWQeTSx56DiQ+Zv2d7eq8RUCRtCvNvXUMtU7gCgbZg==
   dependencies:
     react-device-detect "^1.6.2"
     react-rnd "^9.0.4"

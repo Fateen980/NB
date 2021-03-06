@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 
 
 export const ADD_CUSTOMER = gql`
-mutation addCustomer($name:String!,$phone:String!,$city:Float!,$status:Float!,$type:Float!,$address:String!) {
+mutation addCustomer($name:String!,$phone:String!,$city:String!,$status:Float!,$type:Float!,$address:String!) {
          addCustomer(NewCustomerData: {name:$name,phone:$phone,city:$city,status:$status,type:$type,address:$address}){
                  _id
                  name       
