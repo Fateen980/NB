@@ -9,6 +9,10 @@ import {
   LogoutButton,
 } from './sidebar.style';
 
+import { Button } from 'components/button/button';
+import { Box }    from 'components/box';
+import { Plus }   from 'assets/icons/PlusMinus';
+
 import {
   PROFILE_SIDEBAR_TOP_MENU,
   PROFILE_SIDEBAR_BOTTOM_MENU,
@@ -30,12 +34,40 @@ const SidebarCategory: React.FC<{}> = () => {
     <>
       <SidebarWrapper>
         <SidebarTop>
-        <Heading>
+
+       
+        <Button>
+                <Box mr={2}>
+                  <Plus width='10px' />
+                </Box>
          <NavLink router="customer" href="/grocery"  label="Add new Customer" />
-         <NavLink router="customer" href="/customer" label="View Customers" />
-         <NavLink router="customer" href="/orders"   label="add New Order" />
-         <NavLink router="customer" href="/order"    label="View Orders" />
-         </Heading>
+       </Button>
+       </SidebarTop>
+       <SidebarTop>
+       <Button>
+                <Box mr={2}>
+                  <Plus width='10px' />
+                </Box>
+                <NavLink router="customer" href="/customer" label="View Customers" />
+       </Button>
+       </SidebarTop>
+       <SidebarTop>
+       <Button>
+                <Box mr={2}>
+                  <Plus width='10px' />
+                </Box>
+                <NavLink router="customer" href="/orders"   label="add New Order" />
+       </Button>
+       </SidebarTop>
+       <SidebarTop>
+
+       <Button>
+                <Box mr={2}>
+                  <Plus width='10px' />
+                </Box>
+                <NavLink router="customer" href="/order"    label="View Orders" />
+       </Button>
+
         </SidebarTop>
 
         <SidebarBottom>

@@ -1,15 +1,22 @@
-import { InputType, Field, Float  } from 'type-graphql';
+import { InputType, Field, Float,ObjectType } from 'type-graphql';
 import {MaxLength, Min,Max,Length,IsInt, IsString,IsNotEmpty , IsDate, IsNumber} from 'class-validator'
 
+
+@ObjectType()
+class Customer {
+
+  @Field()
+  name:string
+
+  @Field()
+  phone: string;
+
+}
 
 
 @InputType()
 export default class NewOrderInput {
 
-    @Field()
-    @IsString()
-    @IsNotEmpty()
-    customer_id: string;
 
     @Field()
     @IsString()
@@ -42,4 +49,9 @@ export default class NewOrderInput {
     @IsNumber()
     total:number
 
+    @Field(type => [String])
+    customers: string[];
+
 }
+
+

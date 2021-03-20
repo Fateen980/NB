@@ -7,7 +7,7 @@ import { handleModal } from 'features/checkouts/checkout-modal';
 import { ProfileContext } from 'contexts/profile/profile.context';
 import CreateOrUpdateContact from 'components/contact-card/contact-card';
 import { useMutation } from '@apollo/client';
-import { DELETE_CONTACT } from 'graphql/mutation/contact';
+// import { DELETE_CONTACT } from 'graphql/mutation/contact';
 import { CardHeader } from 'components/card-header/card-header';
 import { ButtonGroup } from 'components/button-group/button-group';
 import { Box } from 'components/box';
@@ -30,30 +30,27 @@ const Contact = ({
     className: 'add-button',
   },
 }: Props) => {
-  const [deleteContactMutation] = useMutation(DELETE_CONTACT);
+  // const [deleteContactMutation] = useMutation(DELETE_CONTACT);
 
-  const {
-    state: { contact },
-    dispatch,
-  } = useContext(ProfileContext);
+  // const {
+  //   state: { contact },
+  //   dispatch,
+  // } = useContext(ProfileContext);
 
   const handleOnDelete = async (item) => {
-    dispatch({ type: 'DELETE_CONTACT', payload: item.id });
-    return await deleteContactMutation({
-      variables: { contactId: JSON.stringify(item.id) },
-    });
+    // dispatch({ type: 'DELETE_CONTACT', payload: item.id });
+    // return await deleteContactMutation({
+    //   variables: { contactId: JSON.stringify(item.id) },
+    // });
   };
   return (
     <>
       <CardHeader increment={increment}>
-        <FormattedMessage
-          id='contactNumberText'
-          defaultMessage='Select Your Contact Number'
-        />
+      Select Your Contact Number
       </CardHeader>
       <ButtonGroup flexStart={flexStart}>
         <RadioGroup
-          items={contact}
+          items={['fateen',1]}
           component={(item: any) => (
             <RadioCard
               id={item.id}
@@ -61,15 +58,10 @@ const Contact = ({
               title={item.type}
               content={item.number}
               checked={item.type === 'primary'}
-              onChange={() =>
-                dispatch({
-                  type: 'SET_PRIMARY_CONTACT',
-                  payload: item.id.toString(),
-                })
-              }
               name='contact'
               onEdit={() => handleModal(CreateOrUpdateContact, item)}
               onDelete={() => handleOnDelete(item)}
+              onChange={() => handleOnDelete(item)}
             />
           )}
           secondaryComponent={
@@ -84,10 +76,7 @@ const Contact = ({
                   <Plus width='10px' />
                 </Box>
               )}
-              <FormattedMessage
-                id='addContactBtn'
-                defaultMessage='Add Contact'
-              />
+             Add Contact
             </Button>
           }
         />

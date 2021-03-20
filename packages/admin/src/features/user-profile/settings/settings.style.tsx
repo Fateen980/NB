@@ -27,13 +27,12 @@ const SettingsFormContent = styled.div`
   margin-bottom: 50px;
 
   &:last-child {
-    margin-bottom: 0;
+    margin-bottom: 50px;
   }
 `;
 
 const Row = styled(Rows)`
   margin-bottom: 40px;
-
   @media only screen and (min-width: 0em) and (max-width: 47.99em) {
     margin-bottom: 30px;
   }

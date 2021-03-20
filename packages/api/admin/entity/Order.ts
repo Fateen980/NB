@@ -9,9 +9,6 @@ export default class Order extends BaseEntity {
     @ObjectIdColumn()
     _id: ObjectID;
 
-    @Field()
-    @Column()
-    customer_id: string;
 
     @Field()
     @Column()
@@ -46,5 +43,9 @@ export default class Order extends BaseEntity {
     @Field({ defaultValue:0 })
     @Column()
     total:number
+
+    @Field(type => [String],{nullable:true})
+    @Column()
+    customer:string[]
 
 }

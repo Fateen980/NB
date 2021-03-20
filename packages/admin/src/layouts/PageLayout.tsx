@@ -14,6 +14,8 @@ import { defaultTheme }    from  'site-settings/site-theme/default';
 import { SEO }             from 'components/seo';
 import  { ViewCustomer }   from 'components/customer/viewCustomers'
 
+
+
 import Sidebar from 'features/user-profile/sidebar/sidebar';
 const AppLayout = dynamic(() => import('layouts/app-layout'));
 
